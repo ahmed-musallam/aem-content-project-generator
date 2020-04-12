@@ -1,0 +1,89 @@
+---
+to: <%=name%>/pom.xml
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <name><%=title%></name>
+    <description><%=description%></description>
+
+    <groupId><%=groupId%></groupId>
+    <artifactId><%=artifactId%></artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>content-package</packaging>
+
+    <properties>
+        <contentPackage.name><%=name%></contentPackage.name>
+        <contentPackage.group><%=groupId%></contentPackage.group>
+        <aem.host>localhost</aem.host>
+        <aem.port>4502</aem.port>
+        <sling.user>admin</sling.user>
+        <sling.password>admin</sling.password>
+        <vault.user>admin</vault.user>
+        <vault.password>admin</vault.password>
+    </properties>
+
+    <build>
+        <finalName>${contentPackage.name}-${project.version}</finalName>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.jackrabbit</groupId>
+                <artifactId>filevault-package-maven-plugin</artifactId>
+                <version>1.0.4</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <name>${contentPackage.name}</name>
+                    <group>${contentPackage.group}</group>
+                    <packageType>content</packageType>
+                    <filters>
+                        <filter>
+                            <root>/apps/<%=name%></root>
+                        </filter>
+                    </filters>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.day.jcr.vault</groupId>
+                <artifactId>content-package-maven-plugin</artifactId>
+                <version>1.0.2</version>
+                <configuration>
+                    <targetURL>http://${aem.host}:${aem.port}/crx/packmgr/service.jsp</targetURL>
+                    <failOnError>true</failOnError>
+                    <userId>${vault.user}</userId>
+                    <password>${vault.password}</password>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <profiles>
+        <profile>
+            <id>autoInstallPackage</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>com.day.jcr.vault</groupId>
+                            <artifactId>content-package-maven-plugin</artifactId>
+                            <executions>
+                                <execution>
+                                    <id>install-package</id>
+                                    <goals>
+                                        <goal>install</goal>
+                                    </goals>
+                                    <configuration>
+                                        <targetURL>http://${aem.host}:${aem.port}/crx/packmgr/service.jsp</targetURL>
+                                    </configuration>
+                                </execution>
+                            </executions>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
+    </profiles>
+</project>

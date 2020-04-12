@@ -1,0 +1,26 @@
+{
+  "name": "aem-content-project-generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bin.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "aemcg": "./bin.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahmed-musallam/aem-content-project-generator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ahmed-musallam/aem-content-project-generator/issues"
+  },
+  "homepage": "https://github.com/ahmed-musallam/aem-content-project-generator#readme",
+  "dependencies": {
+    "execa": "^4.0.0",
+    "hygen": "^5.0.3"
+  }
+}
