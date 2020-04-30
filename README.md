@@ -1,6 +1,6 @@
 (for now, since thi is not published to NPM yet)
 ```
-npm install -g git+ssh://git@github.com/ahmed-musallam/aem-content-project-generator.git
+npm install -g aem-content-project-generator
 ```
 
 To generate a simple content project:
@@ -9,4 +9,4 @@ To generate a simple content project:
 aemag content-project new
 ```
 
-enter requested value and voila!
+enter requested value and voila! A new simple content project is generated.
